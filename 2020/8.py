@@ -4,8 +4,8 @@ import sys
 
 prog = []
 for line in sys.stdin:
-    code, arg = line.rstrip().split(' ')
-    prog.append((code, int(arg)))
+    op, arg = line.rstrip().split(' ')
+    prog.append((op, int(arg)))
 
 used = [False for _ in range(len(prog))]
 acc = 0
@@ -15,11 +15,11 @@ while True:
         print(acc)
         break
     used[pc] = True
-    code, arg = prog[pc]
-    if code == 'acc':
+    op, arg = prog[pc]
+    if op == 'acc':
         acc += arg
         pc += 1
-    elif code == 'jmp':
+    elif op == 'jmp':
         pc += arg
     else:
         pc += 1
