@@ -12,7 +12,7 @@ q = deque([(0, False, 0)])
 n = len(prog)
 visited = [[False, False] for _ in range(n)]
 while q:
-    pc, used_flipped_op, acc = q.pop()
+    pc, used_flipped_op, acc = q.popleft()
     if pc == n:
         print(acc)
         break
