@@ -17,11 +17,7 @@ for line in sys.stdin:
         found = False
         for n1 in cnts:
             assert cnts[n1] > 0
-            if n == 2*n1:
-                if n1 in cnts and cnts[n1] >= 2:
-                    found = True
-                    break
-            else:
+            if n != 2*n1:
                 if (n-n1) in cnts and cnts[n-n1] >= 1:
                     found = True
                     break
