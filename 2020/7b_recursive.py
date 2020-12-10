@@ -1,6 +1,6 @@
 import sys
 import re
-from collections import defaultdict, deque
+from collections import defaultdict
 
 def dfs(curr, edges):
     res = 1
