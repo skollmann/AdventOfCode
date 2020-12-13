@@ -6,8 +6,7 @@ schedules = [0 if s == 'x' else int(s) for s in sys.stdin.readline().rstrip().sp
 def eea(a, b):
     """ 
     Extended euclidean algorithm. Solves the equation a*x + b*y = gcd(a,b).
-    Returns {x, y, +/-gcd(a,b)}
-    Assumes a, b > 0.
+    Returns {x, y, +/-gcd(a,b)}. Assumes a, b > 0.
     """
     if a == 0: return (0, 1, b)
     x = eea(b%a, a)
