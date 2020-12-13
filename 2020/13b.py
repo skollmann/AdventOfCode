@@ -4,8 +4,10 @@ ts = int(sys.stdin.readline().rstrip())
 schedules = [0 if s == 'x' else int(s) for s in sys.stdin.readline().rstrip().split(',')]
 
 def eea(a, b):
-    """ Solves the equation a*x + b*y = gcd(a,b); returns {x, y, +/-gcd(a,b)}
-        Assumes a, b >= 0.
+    """ 
+    Extended euclidean algorithm. Solves the equation a*x + b*y = gcd(a,b).
+    Returns {x, y, +/-gcd(a,b)}
+    Assumes a, b > 0.
     """
     if a == 0: return (0, 1, b)
     x = eea(b%a, a)
@@ -13,9 +15,10 @@ def eea(a, b):
 
 
 def chinese_remainder(a, m):
-    """ Returns the smallest l >= 0, such that for all i, a[i] = l mod m[i] 
-        All solutions are congruent mod m[0]*[1]*...*m[m.length-1].
-        Requires all m[i] to be coprime.
+    """
+    Returns the smallest l >= 0, such that for all i, a[i] = l (mod m[i]).
+    All solutions are congruent mod m[0]*[1]*...*m[m.length-1].
+    Requires all m[i] to be coprime.
     """
     M = 1
     for l in m: M *= l
@@ -35,4 +38,5 @@ for i, s in enumerate(schedules):
         a.append(s-i)
         m.append(s)
 
-print(chinese_remainder(a, m))
+res = chinese_remainder(a, m)
+print(res)
