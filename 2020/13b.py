@@ -37,5 +37,5 @@ for i, s in enumerate(schedules):
         a.append(s-i)
         m.append(s)
 
-# Note that I'm assuming here that all m[i] are coprime, which seems to be the case in my input.
+# Note that I'm assuming here that all m[i] are pairwise coprime, which seems to be the case in my input.
 print(chinese_remainder(a, m))
