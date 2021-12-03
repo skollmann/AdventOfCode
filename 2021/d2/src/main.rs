@@ -18,25 +18,20 @@ impl FromStr for Command {
     type Err = CommandParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut tokens = s.split(' ');
-        let cmd: Command = if let Some(cmd) = tokens.next() {
-            if let Some(number_str) = tokens.next() {
-                match number_str.parse() {
-                    Ok(number) => match cmd {
-                        "forward" => Command::Forward(number),
-                        "down" => Command::Down(number),
-                        "up" => Command::Up(number),
-                        _ => return Result::Err(CommandParseError::InvalidCommand),
-                    },
-                    Err(_) => return Result::Err(CommandParseError::InvalidNumber)
-                }
-            } else {
-                return Result::Err(CommandParseError::InvalidNumberOfTokens);
+        let result = if let Some((cmd, number_str)) = s.split_once(' ') {
+            match number_str.parse() {
+                Ok(number) => match cmd {
+                    "forward" => Command::Forward(number),
+                    "down" => Command::Down(number),
+                    "up" => Command::Up(number),
+                    _ => return Result::Err(CommandParseError::InvalidCommand)
+                },
+                Err(_) => return Result::Err(CommandParseError::InvalidNumber)
             }
         } else {
             return Result::Err(CommandParseError::InvalidNumberOfTokens);
         };
-        return Result::Ok(cmd);
+        Ok(result)
     }
 }
 
