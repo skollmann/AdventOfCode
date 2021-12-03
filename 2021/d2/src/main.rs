@@ -1,5 +1,4 @@
 use std::io::{self, BufRead};
-use std::num::ParseIntError;
 use std::str::FromStr;
 
 enum Command {
@@ -21,17 +20,15 @@ impl FromStr for Command {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut tokens = s.split(' ');
         let cmd: Command = if let Some(cmd) = tokens.next() {
-            if let Some(amount_str) = tokens.next() {
-                let amount: Result<u32, ParseIntError> = amount_str.parse();
-                if amount.is_ok() {
-                    match cmd {
-                        "forward" => Command::Forward(amount.unwrap()),
-                        "down" => Command::Down(amount.unwrap()),
-                        "up" => Command::Up(amount.unwrap()),
+            if let Some(number_str) = tokens.next() {
+                match number_str.parse() {
+                    Ok(number) => match cmd {
+                        "forward" => Command::Forward(number),
+                        "down" => Command::Down(number),
+                        "up" => Command::Up(number),
                         _ => return Result::Err(CommandParseError::InvalidCommand),
-                    }
-                } else {
-                    return Result::Err(CommandParseError::InvalidNumber);
+                    },
+                    Err(_) => return Result::Err(CommandParseError::InvalidNumber)
                 }
             } else {
                 return Result::Err(CommandParseError::InvalidNumberOfTokens);
